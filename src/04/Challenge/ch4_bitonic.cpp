@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 // is_bitonic()
 // Summary: This function receives an STL vector of integers and returns true if it contains a bitonic sequence, false otherwise.
@@ -19,9 +20,19 @@
 //           v: A reference to the vector to analyze.
 // Returns: A boolean value: True for bitonic sequences, false otherwise.
 bool is_bitonic(const std::vector<int> &v){
-    
-    // Write your code here
+    auto sorted_until {std::is_sorted_until(v.begin(),v.end())};
+    if (sorted_until == v.end()) return true;
+    sorted_until = std::is_sorted_until(sorted_until,v.end(),std::greater<>{});
+    if (sorted_until == v.end()) return true;
+    sorted_until = std::is_sorted_until(sorted_until,v.end());
+    if (sorted_until == v.end()) return v.front() >= v.back();
 
+    sorted_until = std::is_sorted_until(v.begin(),v.end(),std::greater<>{});
+    if (sorted_until == v.end()) return true;
+    sorted_until = std::is_sorted_until(sorted_until,v.end());
+    if (sorted_until == v.end()) return true;
+    sorted_until = std::is_sorted_until(sorted_until,v.end(),std::greater<>{});
+    if (sorted_until == v.end()) return v.front() <= v.back();
     return false;
 }
 
@@ -29,10 +40,10 @@ bool is_bitonic(const std::vector<int> &v){
 int main(){
     // Uncomment one of these lines and make sure you get the result at the right. 
     
-    std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
+    // std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
     // std::vector<int> myvec = {1, 1, 1, 1, 1};  // Yes
     // std::vector<int> myvec = {3, 4, 5, 2, 2};  // Yes
-    // std::vector<int> myvec = {3, 4, 5, 2, 4};  // No
+    std::vector<int> myvec = {3, 4, 5, 2, 4};  // No
     // std::vector<int> myvec = {1, 2, 3, 4, 5};  // Yes
     // std::vector<int> myvec = {1, 2, 3, 1, 2};  // No
     // std::vector<int> myvec = {5, 4, 6, 2, 6};  // No
