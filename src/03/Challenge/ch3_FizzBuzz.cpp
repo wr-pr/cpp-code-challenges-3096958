@@ -6,6 +6,7 @@
 // The user enters the last number in the sequence.
 
 #include <iostream>
+#include <string>
 
 // FizzBuzz, main()
 // Summary: This application runs on the main function.
@@ -16,7 +17,19 @@ int main(){
     std::cin >> n;
 
     // Write your code here
-    
-    std::cout << std::endl << std::flush;
+    std::string arr = "1";
+    for (int i {2}; i<n;++i)
+    {
+        bool mod3 {i%3==0}, mod5 {i%5==0};
+        arr.append(" ");
+        if (!mod3 && !mod5)
+        {
+            arr.append(std::to_string(i));
+            continue;
+        }
+        if (mod3) arr.append("Fizz");
+        if (mod5) arr.append("Buzz");
+    }
+    std::cout << arr << std::endl << std::flush;
     return 0;
 }
