@@ -16,10 +16,35 @@
 //           knight: The knight's location.
 // Returns: An STL vector of strings with the possible locations to move.
 std::vector<std::string> knight_moves(std::string knight){
-    std::vector<std::string> moves;
+    std::vector<std::string> moves {};
+    int cx = knight.at(0) -'a', cy = knight.at(1) - '0';
 
-    // Write your code here
+    for (int x {1}; x < 3; ++x)
+    {
+        int y = 3-x;
+        int nx = cx+x,ny=cy+y;
+        std::string position = "";
+        position += static_cast<char>(nx+'a') + std::to_string(ny);
+        if (nx < 8 && ny < 9) moves.push_back(position);
+        
+        y *= -1;
+        nx = cx+x; ny=cy+y;
+        position = static_cast<char>(nx+'a') + std::to_string(ny);
+        if (nx < 8 && ny > 0) moves.push_back(position);
 
+        // 
+        x *= -1;
+        nx = cx+x; ny=cy+y;
+        position = static_cast<char>(nx+'a') + std::to_string(ny);
+        if (nx >= 0 && ny > 0) moves.push_back(position);
+        
+        y *= -1;
+        nx = cx+x; ny=cy+y;
+        position = static_cast<char>(nx+'a') + std::to_string(ny);
+        if (nx >= 0 && ny < 9) moves.push_back(position);
+
+        x*=-1;
+    }
     return moves;
 }
 
